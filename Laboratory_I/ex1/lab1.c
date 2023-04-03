@@ -27,8 +27,8 @@
 }
 
 // -------- uncomment these two lines when solutions are published --------
-// #include "../../solutions/lab1_sol.cu"
-// #define RESULTS
+//#include "../../solutions/lab1_sol.cu"
+//#define RESULTS
 // ------------------------------------------------------------------------
 
 #ifndef SOLUTION_STACKVEC_1
@@ -86,9 +86,18 @@ int main(void) {
         SOLUTION_STACKVEC_1
         PRINT_RESULT_VECTOR(c, "c")
 #else
-        /* |========================================| */
-        /* |           Put here your code           | */
-        /* |========================================| */
+int a[LEN], b[LEN], c[LEN];                     \
+    gettimeofday(&temp_1, (struct timezone*)0); \
+    for (int i=0; i<LEN; i++) {                 \
+        a[i] = i;                               \
+        b[i] = i * 100;                         \
+    }                                           \
+                                                \
+    for (int i=0; i<LEN; i++)                   \
+        c[i] = a[i] + b[i];                     \
+    gettimeofday(&temp_2, (struct timezone*)0); \
+    CPU_times[0] = ((temp_2.tv_sec-temp_1.tv_sec)+(temp_2.tv_usec-temp_1.tv_usec)/1000000.0);
+
 
 
 #endif
@@ -100,9 +109,14 @@ int main(void) {
     SOLUTION_HEAPVEC_1
     PRINT_RESULT_VECTOR(c1, "c1")
 #else
-        /* |========================================| */
-        /* |           Put here your code           | */
-        /* |========================================| */
+    gettimeofday(&temp_1, (struct timezone*)0);
+    int a = malloc(sizeof(int) * LEN);
+    int b = malloc(sizeof(int) * LEN);
+    int c = malloc(sizeof(int) * LEN);
+    
+
+
+    gettimeofday(&temp_2, (struct timezone*)0);
 
 
 #endif
