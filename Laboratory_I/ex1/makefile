@@ -9,7 +9,7 @@ TARGETDIR   := bin
 
 all: $(TARGETDIR)/lab1
 
-debug: OPT += -DDEBUG -g
+debug: OPT += -DDEBUG
 debug: all
 
 $(TARGETDIR)/lab1: ${MAIN}

@@ -63,6 +63,12 @@
 #define SOLUTION_STACKMAT_2 { }
 #endif
 
+
+void heap_vec_1(int*a1, int*b1, int*c1, int len){
+    for(int i = 0; i < len ; ++i){
+        *(c1 +i) = *(a1 +i) + *(b1 +i); 
+    }
+}
 int main(void) {
     // ---------- for timing ----------
     float CPU_times[NPROBS];
@@ -86,19 +92,17 @@ int main(void) {
         SOLUTION_STACKVEC_1
         PRINT_RESULT_VECTOR(c, "c")
 #else
-int a[LEN], b[LEN], c[LEN];                     \
-    gettimeofday(&temp_1, (struct timezone*)0); \
-    for (int i=0; i<LEN; i++) {                 \
-        a[i] = i;                               \
-        b[i] = i * 100;                         \
-    }                                           \
-                                                \
-    for (int i=0; i<LEN; i++)                   \
-        c[i] = a[i] + b[i];                     \
-    gettimeofday(&temp_2, (struct timezone*)0); \
-    CPU_times[0] = ((temp_2.tv_sec-temp_1.tv_sec)+(temp_2.tv_usec-temp_1.tv_usec)/1000000.0);
 
-
+int a[LEN], b[LEN], c[LEN];                     
+    gettimeofday(&temp_1, (struct timezone*)0); 
+    for (int i = 0; i < LEN; i++) {                 
+        a[i] = i;                               
+        b[i] = i * 100;
+        c[i] = a[i] + b[i];
+    }               
+    PRINT_RESULT_VECTOR(c, "c1 STACK VECTOR");                           
+    gettimeofday(&temp_2, (struct timezone*)0); 
+    CPU_times[0] = ((temp_2.tv_sec-temp_1.tv_sec) + (temp_2.tv_usec - temp_1.tv_usec) / 1000000.0);
 
 #endif
     // ---------------------- Heap vectors 1 -----------------------
@@ -110,13 +114,24 @@ int a[LEN], b[LEN], c[LEN];                     \
     PRINT_RESULT_VECTOR(c1, "c1")
 #else
     gettimeofday(&temp_1, (struct timezone*)0);
-    int a = malloc(sizeof(int) * LEN);
-    int b = malloc(sizeof(int) * LEN);
-    int c = malloc(sizeof(int) * LEN);
+    int* c1 = (int*)malloc(sizeof(int) * LEN);
+    int* a1 = (int*) malloc(sizeof(int) * LEN);
+    int* b1 = (int*) malloc(sizeof(int) * LEN);
+
+    
+    for(int i = 0; i < LEN; ++i){
+        *(a1 + i) = i;
+        *(b1 + i) = i * 100;
+        //*(c1 + i) = *(a1 + i) + *(b1 + i);
+    }
+    heap_vec_1(a1, b1, c1, LEN);
+    PRINT_RESULT_VECTOR(c1, "c1 HEAP VECTOR");
+
     
 
 
-    gettimeofday(&temp_2, (struct timezone*)0);
+    gettimeofday(&temp_2, (struct timezone*)0); 
+    CPU_times[1] = ((temp_2.tv_sec-temp_1.tv_sec) + (temp_2.tv_usec - temp_1.tv_usec) / 1000000.0);
 
 
 #endif
