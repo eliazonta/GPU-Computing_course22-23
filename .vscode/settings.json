@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "lab1_sol.cu": "c"
+        "lab1_sol.cu": "c",
+        "lab1_ex2_lib.h": "c"
     }
 }
